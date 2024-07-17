@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Authentication</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Start Authentication</h1>
+    <form action="/start_auth" method="POST">
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" required>
+        <button type="submit">Send Code</button>
+    </form>
+</body>
+</html>

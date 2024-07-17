@@ -1,0 +1,89 @@
+<!-- dump_messages.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dump Messages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Dump Messages from Telegram</h2>
+        <form id="dumpForm" method="POST" action="/dump_messages">
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="group_url">Telegram Group URL:</label>
+                <input type="text" id="group_url" name="group_url" required>
+            </div>
+            <button type="submit" class="btn">Dump Messages</button>
+        </form>
+        
+        <div id="summaryResult" class="result" style="display: none;">
+            <h3>Summarized Result</h3>
+            <p id="summaryText"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('dumpForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            fetch('/dump_messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    phone: document.getElementById('phone').value,
+                    group_url: document.getElementById('group_url').value
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    document.getElementById('summaryText').textContent = data.summary;
+                    document.getElementById('summaryResult').style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while processing your request.');
+            });
+        });
+    </script>
+</body>
+</html>
