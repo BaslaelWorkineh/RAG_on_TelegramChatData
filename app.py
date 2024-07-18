@@ -8,7 +8,12 @@ from telethon.tl.functions.messages import GetHistoryRequest
 from datetime import datetime
 from dotenv import dotenv_values
 import asyncio
+import logging
+from datetime import datetime, timedelta
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 from summarizer import preprocess_documents, filter_documents, answer_query
 
 
@@ -148,8 +153,8 @@ def verify_code():
 @app.route('/dump_messages', methods=['GET', 'POST'])
 def dump_messages():
     if request.method == 'POST':
-        phone = request.form.get('phone')
-        group_url = request.form.get('group_url')
+        phone = request.json.get('phone')
+        group_url = request.json.get('group_url')
 
         if not phone or not group_url:
             return jsonify({"error": "Phone and group URL are required"}), 400
@@ -169,28 +174,40 @@ def dump_messages():
             limit_msg = 20
             all_messages = []
 
+            now = datetime.now()
+            one_week_ago = now - timedelta(days=7)
+
             while True:
                 history = await client(GetHistoryRequest(
                     peer=channel,
                     offset_id=offset_msg,
-                    offset_date=None,
+                    offset_date=int(one_week_ago.timestamp()),  # Convert datetime to UNIX timestamp
                     add_offset=0,
                     limit=limit_msg,
                     max_id=0,
                     min_id=0,
                     hash=0
                 ))
-                if not history.messages:
-                    break
+                
                 messages = history.messages
+                if not messages:
+                    break
+                
                 for message in messages:
                     all_messages.append(message.to_dict())
+                
                 offset_msg = messages[-1].id
-                print(f'{str(datetime.now())} | Retrieved records: {len(all_messages)}', end='\r')
+                print(f'{datetime.now()} | Retrieved records: {len(all_messages)}', end='\r')
+
+                # Check conditions to break the loop
+                if len(all_messages) >= 1000 or message.date.replace(tzinfo=None) < one_week_ago:
+                    break
+            
 
             filename = "data.json"
             with open(filename, 'w', encoding='utf8') as outfile:
                 json.dump(all_messages, outfile, ensure_ascii=False, cls=DateTimeEncoder)
+            logger.info("Messages dumped to data.json")
 
         try:
             client.connect()
@@ -199,25 +216,44 @@ def dump_messages():
             datetime_string = datetime.now().strftime('%Y%m%dT%H%M%S')
             loop.run_until_complete(dump_all_messages(channel, channel_string, datetime_string))
             client.disconnect()
+            logger.info("Disconnected from Telegram")
 
-            query = "What are the challenges of RAG systems?"  
-            with open('data.json', 'r') as f:
-                documents = json.load(f)
 
-            processed_docs = preprocess_documents(documents)
-            filtered_docs = filter_documents(query, processed_docs)
-            
-            if not filtered_docs:
-                return jsonify({"error": "No relevant documents found for summarization."}), 404
 
-            answers = answer_query(query, filtered_docs)
+            # Summarization process
+            try:
+                query = "What is SingularityNET<?"  # Example query for summarization
+                with open('data.json', 'r') as f:
+                    documents = json.load(f)
+                logger.info("Loaded data.json")
 
-            return jsonify({"message": "Messages dumped successfully"}), 200
+                processed_docs = preprocess_documents(documents)
+                logger.info("Documents preprocessed")
+                filtered_docs = filter_documents(query, processed_docs)
+                logger.info("Documents filtered")
+
+                if not filtered_docs:
+                    return jsonify({"error": "No relevant documents found for summarization."}), 404
+
+                answers = answer_query(query, filtered_docs)
+                logger.info("Query answered")
+
+                return jsonify({"summary": answers['answer']}), 200
+
+            except Exception as e:
+                logger.error(f"Error in summarization: {str(e)}")
+                return jsonify({"error": f"Error in summarization: {str(e)}"}), 500
+
+
+        
         except Exception as e:
             client.disconnect()
+            logger.error(f"Error: {str(e)}")
+
             return jsonify({"error": str(e)}), 500
 
     return render_template('dump_messages.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
