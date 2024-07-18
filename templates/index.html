@@ -1,20 +1,54 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Bot</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Chat Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>Telegram Bot Interface</h1>
-    <nav>
-        <ul>
-            <li><a href="/start_auth">Start Authentication</a></li>
-            <li><a href="/verify_code">Verify Code</a></li>
-            <li><a href="/dump_messages">Dump Messages</a></li>
-        </ul>
-    </nav>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box">
+            <!-- Chat messages will be appended here -->
+        </div>
+        <form id="chat-form">
+            <input type="text" id="question" placeholder="Ask a question...">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#chat-form').on('submit', function(e) {
+                e.preventDefault();
+                let question = $('#question').val();
+                if (question.trim() === '') {
+                    return;
+                }
+                appendMessage('user', question);
+                $('#question').val('');
+                $.ajax({
+                    url: '/ask',
+                    method: 'POST',
+                    data: { question: question },
+                    success: function(response) {
+                        if (response.answer) {
+                            appendMessage('bot', response.answer);
+                        } else if (response.error) {
+                            appendMessage('bot', response.error);
+                        }
+                    }
+                });
+            });
+
+            function appendMessage(sender, message) {
+                let messageElement = $('<div>').addClass('message').addClass(sender);
+                messageElement.text(message);
+                $('#chat-box').append(messageElement);
+                $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,259 +1,148 @@
-import sys
+import os
+from dotenv import load_dotenv
 import json
-import sqlite3
-from flask import Flask, request, jsonify, render_template, redirect, url_for
-from telethon.sync import TelegramClient
-from telethon.sessions import StringSession
-from telethon.tl.functions.messages import GetHistoryRequest
-from datetime import datetime
-from dotenv import dotenv_values
-import asyncio
-import logging
-from datetime import datetime, timedelta
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-from summarizer import preprocess_documents, filter_documents, answer_query
+import chromadb
+from chromadb import Documents, EmbeddingFunction, Embeddings
 
+import google.generativeai as genai
+from flask import Flask, render_template, request, jsonify
+from colorama import init
+from flask_cors import CORS
 
-config = dotenv_values(".env")
-
-if 'TELEGRAM_API_ID' not in config or 'TELEGRAM_API_HASH' not in config or 'TELEGRAM_USERNAME' not in config:
-    print("Error: Missing TELEGRAM_API_ID, TELEGRAM_API_HASH, or TELEGRAM_USERNAME in .env")
-    sys.exit(1)
-
-api_id = int(config['TELEGRAM_API_ID'])
-api_hash = config['TELEGRAM_API_HASH']
-username = config['TELEGRAM_USERNAME']
+init(autoreset=True)
 
 app = Flask(__name__)
+CORS(app) 
 
-def init_db():
-    conn = sqlite3.connect('sessions.db')
-    cursor = conn.cursor()
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS sessions (
-        phone TEXT PRIMARY KEY,
-        session_str TEXT NOT NULL,
-        phone_code_hash TEXT NOT NULL
-    )
-    ''')
-    conn.commit()
-    conn.close()
+load_dotenv()
 
-init_db()
+api_key = os.getenv('GEMINI_API_KEY')
+genai.configure(api_key=api_key)
 
-# Custom JSON encoder to handle datetime
-class DateTimeEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, datetime):
-            return o.isoformat()
-        if isinstance(o, bytes):
-            return list(o)
-        return json.JSONEncoder.default(self, o)
+def preprocess_data(input_file, output_file):
+    with open(input_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    
+    messages = []
+    for message in data['messages']:
+        formatted_message = {
+            'id': message.get('id', ''),
+            'type': message.get('type', ''),
+            'date': message.get('date', ''),
+            'from': message.get('from', ''),
+            'text': message.get('text', '')
+        }
+        messages.append(formatted_message)
+    
+    output_data = {
+        'name': data.get('name', 'Telegram Data'),
+        'type': data.get('type', 'data_conversion'),
+        'id': data.get('id', 1),
+        'messages': messages
+    }
+    
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump(output_data, f, ensure_ascii=False, indent=4)
 
-def save_session(phone, session_str, phone_code_hash):
-    conn = sqlite3.connect('sessions.db')
-    cursor = conn.cursor()
-    cursor.execute('REPLACE INTO sessions (phone, session_str, phone_code_hash) VALUES (?, ?, ?)', (phone, session_str, phone_code_hash))
-    conn.commit()
-    print(f"Session for {phone} saved.")
-    conn.close()
+class GeminiEmbeddingFunction(EmbeddingFunction):
+    def __call__(self, input: Documents) -> Embeddings:
+        model = 'models/embedding-001'
+        title = "Telegram Chat History"
 
-def get_session(phone):
-    conn = sqlite3.connect('sessions.db')
-    cursor = conn.cursor()
-    cursor.execute('SELECT session_str, phone_code_hash FROM sessions WHERE phone = ?', (phone,))
-    row = cursor.fetchone()
-    conn.close()
-    return row if row else None
+        embeddings = []
+        for doc in input:
+            embedding = genai.embed_content(
+                model=model,
+                content=[doc],
+                task_type="retrieval_document",
+                title=title)["embedding"]
+            embeddings.append(embedding[0])  # Flatten the nested list
+        return embeddings
+
+def create_chroma_db(documents, name):
+    chroma_client = chromadb.PersistentClient(path="./database/")
+
+    db = chroma_client.get_or_create_collection(
+        name=name, embedding_function=GeminiEmbeddingFunction())
+
+    initial_size = db.count()
+    for i, d in enumerate(documents):
+        db.add(
+            documents=[d],
+            ids=[str(i + initial_size)]
+        )
+    return db
+
+def get_chroma_db(name):
+    chroma_client = chromadb.PersistentClient(path="./database/")
+    return chroma_client.get_collection(name=name, embedding_function=GeminiEmbeddingFunction())
+
+def get_relevant_passages(query, db, n_results=5):
+    passages = db.query(query_texts=[query], n_results=n_results)['documents'][0]
+    return passages
+
+def make_prompt(query, relevant_passage):
+    escaped = relevant_passage.replace("'", "").replace('"', "")
+    prompt = f"""question: {query}.\n
+    Additional Information:\n {escaped}\n
+    If you find that the question is unrelated to the additional information, you can ignore it and respond with 'OUT OF CONTEXT'.\n
+    Your response should be a coherent paragraph explaining the answer:\n
+    """
+    return prompt
+
+def convert_passages_to_paragraph(passages):
+    context = ""
+    for passage in passages:
+        context += passage + "\n"
+    return context
+
+def load_data_from_json(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    return data
+
+input_file = 'data.json'
+output_file = 'telegram_data.json'
+preprocess_data(input_file, output_file)
+
+data_file = 'telegram_data.json' 
+data = load_data_from_json(data_file)
+
+documents = []
+for message in data['messages']:
+    entry = f"{message['from']}: {message['text']}"
+    documents.append(entry)
+
+db = create_chroma_db(documents, "sme_db")
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/start_auth', methods=['GET', 'POST'])
-def start_auth():
-    if request.method == 'POST':
-        phone = request.form.get('phone')
-        if not phone:
-            return jsonify({"error": "Phone number is required"}), 400
-
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        client = TelegramClient(StringSession(), api_id, api_hash, loop=loop)
-        
-        try:
-            client.connect()
-            send_code_request_result = client.send_code_request(phone)
-            phone_code_hash = send_code_request_result.phone_code_hash
-            session_str = client.session.save()
-            print("Session in start: ", session_str)
-
-            save_session(phone, session_str, phone_code_hash)
-            print(f"Session for {phone} started. Session string: {session_str}")
-            client.disconnect()
-            return redirect(url_for('verify_code', phone=phone))
-        except Exception as e:
-            client.disconnect()
-            return jsonify({"error": str(e)}), 500
-
-    return render_template('start_auth.html')
-
-@app.route('/verify_code', methods=['GET', 'POST'])
-def verify_code():
-    phone = request.args.get('phone')
-    if request.method == 'POST':
-        phone = request.form.get('phone')
-        code = request.form.get('code')
-        password = request.form.get('password', None)
-
-        if not phone or not code:
-            return jsonify({"error": "Phone and code are required"}), 400
-
-        session_data = get_session(phone)
-        if not session_data:
-            print(f"Session not found for {phone}")
-            return jsonify({"error": "Session not found. Start authentication first."}), 404
-
-        session_str, phone_code_hash = session_data
-
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        client = TelegramClient(StringSession(session_str), api_id, api_hash, loop=loop)
-
-        try:
-            client.connect()
-            client.sign_in(phone=phone, code=code, phone_code_hash=phone_code_hash)
-        except Exception as e:
-            if 'password' in str(e).lower():
-                if not password:
-                    client.disconnect()
-                    return render_template('verify_code.html', phone=phone, error="Password required for two-step verification")
-                else:
-                    try:
-                        client.sign_in(password=password)
-                    except Exception as e:
-                        client.disconnect()
-                        return jsonify({"error": str(e)}), 500
-            else:
-                client.disconnect()
-                return jsonify({"error": str(e)}), 500
-
-        session_str = client.session.save()
-        save_session(phone, session_str, phone_code_hash)
-        print(f"Session for {phone} verified. Session string: {session_str}")
-        client.disconnect()
-        return redirect(url_for('dump_messages'))
-
-    return render_template('verify_code.html', phone=phone)
-
-
-@app.route('/dump_messages', methods=['GET', 'POST'])
-def dump_messages():
-    if request.method == 'POST':
-        phone = request.json.get('phone')
-        group_url = request.json.get('group_url')
-
-        if not phone or not group_url:
-            return jsonify({"error": "Phone and group URL are required"}), 400
-
-        session_data = get_session(phone)
-        if not session_data:
-            return jsonify({"error": "Session not found. Authenticate first."}), 404
-
-        session_str, phone_code_hash = session_data
-
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        client = TelegramClient(StringSession(session_str), api_id, api_hash, loop=loop)
-
-        async def dump_all_messages(channel, short_url_, datetime_):
-            offset_msg = 0
-            limit_msg = 20
-            all_messages = []
-
-            now = datetime.now()
-            one_week_ago = now - timedelta(days=7)
-
-            while True:
-                history = await client(GetHistoryRequest(
-                    peer=channel,
-                    offset_id=offset_msg,
-                    offset_date=int(one_week_ago.timestamp()),  # Convert datetime to UNIX timestamp
-                    add_offset=0,
-                    limit=limit_msg,
-                    max_id=0,
-                    min_id=0,
-                    hash=0
-                ))
-                
-                messages = history.messages
-                if not messages:
-                    break
-                
-                for message in messages:
-                    all_messages.append(message.to_dict())
-                
-                offset_msg = messages[-1].id
-                print(f'{datetime.now()} | Retrieved records: {len(all_messages)}', end='\r')
-
-                # Check conditions to break the loop
-                if len(all_messages) >= 1000 or message.date.replace(tzinfo=None) < one_week_ago:
-                    break
+@app.route('/ask', methods=['POST'])
+def ask():
+    question = request.form['question']
+    try:
+        passages = get_relevant_passages(question, db, n_results=5)
+        if passages:
+            context = convert_passages_to_paragraph(passages)
+            prompt = make_prompt(question, context)
+            model = genai.GenerativeModel('gemini-pro')
+            answer = model.generate_content(prompt)
             
-
-            filename = "data.json"
-            with open(filename, 'w', encoding='utf8') as outfile:
-                json.dump(all_messages, outfile, ensure_ascii=False, cls=DateTimeEncoder)
-            logger.info("Messages dumped to data.json")
-
-        try:
-            client.connect()
-            channel = client.get_entity(group_url)
-            channel_string = group_url.split('/')[-1]
-            datetime_string = datetime.now().strftime('%Y%m%dT%H%M%S')
-            loop.run_until_complete(dump_all_messages(channel, channel_string, datetime_string))
-            client.disconnect()
-            logger.info("Disconnected from Telegram")
-
-
-
-            # Summarization process
-            try:
-                query = "What is SingularityNET<?"  # Example query for summarization
-                with open('data.json', 'r') as f:
-                    documents = json.load(f)
-                logger.info("Loaded data.json")
-
-                processed_docs = preprocess_documents(documents)
-                logger.info("Documents preprocessed")
-                filtered_docs = filter_documents(query, processed_docs)
-                logger.info("Documents filtered")
-
-                if not filtered_docs:
-                    return jsonify({"error": "No relevant documents found for summarization."}), 404
-
-                answers = answer_query(query, filtered_docs)
-                logger.info("Query answered")
-
-                return jsonify({"summary": answers['answer']}), 200
-
-            except Exception as e:
-                logger.error(f"Error in summarization: {str(e)}")
-                return jsonify({"error": f"Error in summarization: {str(e)}"}), 500
-
-
-        
-        except Exception as e:
-            client.disconnect()
-            logger.error(f"Error: {str(e)}")
-
-            return jsonify({"error": str(e)}), 500
-
-    return render_template('dump_messages.html')
-
+            return jsonify({
+                'question': question,
+                'answer': answer.text
+            })
+        else:
+            return jsonify({
+                'error': 'No relevant documents found for summarization.'
+            })
+    except Exception as e:
+        return jsonify({
+            'error': f'Error occurred: {str(e)}'
+        })
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8080)

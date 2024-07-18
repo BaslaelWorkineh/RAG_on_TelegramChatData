@@ -8,3 +8,5 @@ torch
 transformers
 scikit-learn
 colorama
+Flask
+Flask-Cors
