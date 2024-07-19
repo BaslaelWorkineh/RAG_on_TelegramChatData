@@ -1,113 +1,922 @@
 {
-    "name": "SingularityNET Community",
-    "type": "public_supergroup",
-    "id": 1140090881,
-    "messages": [
-      {
-        "id": 1028975,
-        "type": "message",
-        "date": "2024-07-17T00:45:00",
-        "date_unixtime": "1721166300",
-        "from": "TechGuru",
-        "from_id": "user4782345621",
-        "text": "The security issue with SDAO is related to the recent vulnerability found in the staking contract. It's advised to move your stake to a new contract. The team has provided detailed instructions in the announcement channel.",
-        "text_entities": [
-          {
-            "type": "plain",
-            "text": "The security issue with SDAO is related to the recent vulnerability found in the staking contract. It's advised to move your stake to a new contract. The team has provided detailed instructions in the announcement channel."
-          }
-        ]
-      },
-      {
-        "id": 1028976,
-        "type": "message",
-        "date": "2024-07-17T00:50:00",
-        "date_unixtime": "1721166600",
-        "from": "CryptoFan",
-        "from_id": "user2938475621",
-        "text": "I just followed the instructions to unstake and restake my SDAO. It was pretty straightforward. Make sure you have some ETH for gas fees.",
-        "text_entities": [
-          {
-            "type": "plain",
-            "text": "I just followed the instructions to unstake and restake my SDAO. It was pretty straightforward. Make sure you have some ETH for gas fees."
-          }
-        ]
-      },
-      {
-        "id": 1028977,
-        "type": "message",
-        "date": "2024-07-17T01:00:00",
-        "date_unixtime": "1721167200",
-        "from": "DevTalk",
-        "from_id": "user1234567890",
-        "text": "For those asking about the technical details, the vulnerability was in the way the smart contract handled state changes. The developers have patched this in the new contract, ensuring better security.",
-        "text_entities": [
-          {
-            "type": "plain",
-            "text": "For those asking about the technical details, the vulnerability was in the way the smart contract handled state changes. The developers have patched this in the new contract, ensuring better security."
-          }
-        ]
-      },
-      {
-        "id": 1028978,
-        "type": "message",
-        "date": "2024-07-17T01:15:00",
-        "date_unixtime": "1721168100",
-        "from": "CommunityAdmin",
-        "from_id": "user0987654321",
-        "text": "We understand the concerns about the security issue. The team is working around the clock to ensure that all staked assets are safe. Please follow the guidelines posted in the official announcement.",
-        "text_entities": [
-          {
-            "type": "plain",
-            "text": "We understand the concerns about the security issue. The team is working around the clock to ensure that all staked assets are safe. Please follow the guidelines posted in the official announcement."
-          }
-        ]
-      },
-      {
-        "id": 1028979,
-        "type": "message",
-        "date": "2024-07-17T01:30:00",
-        "date_unixtime": "1721169000",
-        "from": "BlockchainExpert",
-        "from_id": "user1122334455",
-        "text": "If you're new to unstaking, make sure to backup your wallet and double-check the new contract address before restaking. Scammers might try to take advantage of the situation.",
-        "text_entities": [
-          {
-            "type": "plain",
-            "text": "If you're new to unstaking, make sure to backup your wallet and double-check the new contract address before restaking. Scammers might try to take advantage of the situation."
-          }
-        ]
-      },
-      {
-        "id": 1028980,
-        "type": "message",
-        "date": "2024-07-17T01:45:00",
-        "date_unixtime": "1721169900",
-        "from": "CryptoInvestor",
-        "from_id": "user5566778899",
-        "text": "Just restaked my SDAO. The new contract seems much more secure. Kudos to the dev team for the quick response and fix!",
-        "text_entities": [
-          {
-            "type": "plain",
-            "text": "Just restaked my SDAO. The new contract seems much more secure. Kudos to the dev team for the quick response and fix!"
-          }
-        ]
-      },
-      {
-        "id": 1028981,
-        "type": "message",
-        "date": "2024-07-17T02:00:00",
-        "date_unixtime": "1721170800",
-        "from": "BlockchainDev",
-        "from_id": "user2233445566",
-        "text": "For anyone experiencing issues with the new staking process, try clearing your cache and cookies. If the problem persists, reach out to the support team via the official website.",
-        "text_entities": [
-          {
-            "type": "plain",
-            "text": "For anyone experiencing issues with the new staking process, try clearing your cache and cookies. If the problem persists, reach out to the support team via the official website."
-          }
-        ]
-      }
-    ]
-  }
-  
+  "name": "SingularityNET Community",
+  "type": "public_supergroup",
+  "id": 1140090881,
+  "messages": [
+    {
+      "id": 1028975,
+      "type": "message",
+      "date": "2024-07-17T00:45:00",
+      "date_unixtime": "1721166300",
+      "from": "TechGuru",
+      "from_id": "user4782345621",
+      "text": "The security issue with SDAO is related to the recent vulnerability found in the staking contract. It's advised to move your stake to a new contract. The team has provided detailed instructions in the announcement channel.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "The security issue with SDAO is related to the recent vulnerability found in the staking contract. It's advised to move your stake to a new contract. The team has provided detailed instructions in the announcement channel."
+        }
+      ]
+    },
+    {
+      "id": 1028976,
+      "type": "message",
+      "date": "2024-07-17T00:50:00",
+      "date_unixtime": "1721166600",
+      "from": "CryptoFan",
+      "from_id": "user2938475621",
+      "text": "I just followed the instructions to unstake and restake my SDAO. It was pretty straightforward. Make sure you have some ETH for gas fees.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "I just followed the instructions to unstake and restake my SDAO. It was pretty straightforward. Make sure you have some ETH for gas fees."
+        }
+      ]
+    },
+    {
+      "id": 1028977,
+      "type": "message",
+      "date": "2024-07-17T01:00:00",
+      "date_unixtime": "1721167200",
+      "from": "DevTalk",
+      "from_id": "user1234567890",
+      "text": "For those asking about the technical details, the vulnerability was in the way the smart contract handled state changes. The developers have patched this in the new contract, ensuring better security.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "For those asking about the technical details, the vulnerability was in the way the smart contract handled state changes. The developers have patched this in the new contract, ensuring better security."
+        }
+      ]
+    },
+    {
+      "id": 1028978,
+      "type": "message",
+      "date": "2024-07-17T01:15:00",
+      "date_unixtime": "1721168100",
+      "from": "CommunityAdmin",
+      "from_id": "user0987654321",
+      "text": "We understand the concerns about the security issue. The team is working around the clock to ensure that all staked assets are safe. Please follow the guidelines posted in the official announcement.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "We understand the concerns about the security issue. The team is working around the clock to ensure that all staked assets are safe. Please follow the guidelines posted in the official announcement."
+        }
+      ]
+    },
+    {
+      "id": 1028979,
+      "type": "message",
+      "date": "2024-07-17T01:30:00",
+      "date_unixtime": "1721169000",
+      "from": "BlockchainExpert",
+      "from_id": "user1122334455",
+      "text": "If you're new to unstaking, make sure to backup your wallet and double-check the new contract address before restaking. Scammers might try to take advantage of the situation.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "If you're new to unstaking, make sure to backup your wallet and double-check the new contract address before restaking. Scammers might try to take advantage of the situation."
+        }
+      ]
+    },
+    {
+      "id": 1028980,
+      "type": "message",
+      "date": "2024-07-17T01:45:00",
+      "date_unixtime": "1721169900",
+      "from": "CryptoInvestor",
+      "from_id": "user5566778899",
+      "text": "Just restaked my SDAO. The new contract seems much more secure. Kudos to the dev team for the quick response and fix!",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Just restaked my SDAO. The new contract seems much more secure. Kudos to the dev team for the quick response and fix!"
+        }
+      ]
+    },
+    {
+      "id": 1028981,
+      "type": "message",
+      "date": "2024-07-17T02:00:00",
+      "date_unixtime": "1721170800",
+      "from": "BlockchainDev",
+      "from_id": "user2233445566",
+      "text": "For anyone experiencing issues with the new staking process, try clearing your cache and cookies. If the problem persists, reach out to the support team via the official website.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "For anyone experiencing issues with the new staking process, try clearing your cache and cookies. If the problem persists, reach out to the support team via the official website."
+        }
+      ]
+    },
+    {
+      "id": 1000001,
+      "type": "message",
+      "date": "2024-07-17T00:00:00",
+      "date_unixtime": "1721164800",
+      "from": "CryptoGuru",
+      "from_id": "user1000001",
+      "text": "Ethereum's upcoming hard fork is set to improve scalability. Make sure to update your nodes.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Ethereum's upcoming hard fork is set to improve scalability. Make sure to update your nodes."
+        }
+      ]
+    },
+    {
+      "id": 1000002,
+      "type": "message",
+      "date": "2024-07-17T00:05:00",
+      "date_unixtime": "1721165100",
+      "from": "BlockchainDev",
+      "from_id": "user1000002",
+      "text": "The latest version of the smart contract framework includes better security features. Check out the release notes for more details.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "The latest version of the smart contract framework includes better security features. Check out the release notes for more details."
+        }
+      ]
+    },
+    {
+      "id": 1000003,
+      "type": "message",
+      "date": "2024-07-17T00:10:00",
+      "date_unixtime": "1721165400",
+      "from": "CryptoInvestor",
+      "from_id": "user1000003",
+      "text": "Just participated in the new DeFi project. The APY looks promising.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Just participated in the new DeFi project. The APY looks promising."
+        }
+      ]
+    },
+    {
+      "id": 1000004,
+      "type": "message",
+      "date": "2024-07-17T00:15:00",
+      "date_unixtime": "1721165700",
+      "from": "TechEnthusiast",
+      "from_id": "user1000004",
+      "text": "Has anyone tried staking on the new platform? How are the returns?",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Has anyone tried staking on the new platform? How are the returns?"
+        }
+      ]
+    },
+    {
+      "id": 1000005,
+      "type": "message",
+      "date": "2024-07-17T00:20:00",
+      "date_unixtime": "1721166000",
+      "from": "BlockchainExpert",
+      "from_id": "user1000005",
+      "text": "The latest vulnerability in the staking contract has been patched. Ensure to migrate your assets to the new contract.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "The latest vulnerability in the staking contract has been patched. Ensure to migrate your assets to the new contract."
+        }
+      ]
+    },
+    {
+      "id": 1000006,
+      "type": "message",
+      "date": "2024-07-17T00:25:00",
+      "date_unixtime": "1721166300",
+      "from": "CryptoFan",
+      "from_id": "user1000006",
+      "text": "Followed the migration process for the staking contract. It was smooth and well-documented.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Followed the migration process for the staking contract. It was smooth and well-documented."
+        }
+      ]
+    },
+    {
+      "id": 1000007,
+      "type": "message",
+      "date": "2024-07-17T00:30:00",
+      "date_unixtime": "1721166600",
+      "from": "DeFiDev",
+      "from_id": "user1000007",
+      "text": "The new DeFi protocol's governance token is now live. Check the official website for details.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "The new DeFi protocol's governance token is now live. Check the official website for details."
+        }
+      ]
+    },
+    {
+      "id": 1000008,
+      "type": "message",
+      "date": "2024-07-17T00:35:00",
+      "date_unixtime": "1721166900",
+      "from": "TechGuru",
+      "from_id": "user1000008",
+      "text": "Does anyone know the best practices for securing a smart contract? Any recommended resources?",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Does anyone know the best practices for securing a smart contract? Any recommended resources?"
+        }
+      ]
+    },
+    {
+      "id": 1000009,
+      "type": "message",
+      "date": "2024-07-17T00:40:00",
+      "date_unixtime": "1721167200",
+      "from": "CryptoEnthusiast",
+      "from_id": "user1000009",
+      "text": "I've been experimenting with different staking platforms. So far, DeFiStake offers the best returns.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "I've been experimenting with different staking platforms. So far, DeFiStake offers the best returns."
+        }
+      ]
+    },
+    {
+      "id": 1000010,
+      "type": "message",
+      "date": "2024-07-17T00:45:00",
+      "date_unixtime": "1721167500",
+      "from": "BlockchainExpert",
+      "from_id": "user1000010",
+      "text": "The new Ethereum improvement proposal (EIP) aims to reduce gas fees significantly. It's currently under review.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "The new Ethereum improvement proposal (EIP) aims to reduce gas fees significantly. It's currently under review."
+        }
+      ]
+    },
+    {
+      "id": 1000011,
+      "type": "message",
+      "date": "2024-07-17T00:50:00",
+      "date_unixtime": "1721167800",
+      "from": "CryptoTrader",
+      "from_id": "user1000011",
+      "text": "I've noticed a surge in trading volume for the new altcoin. Anyone else seeing this trend?",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "I've noticed a surge in trading volume for the new altcoin. Anyone else seeing this trend?"
+        }
+      ]
+    },
+    {
+      "id": 1000012,
+      "type": "message",
+      "date": "2024-07-17T00:55:00",
+      "date_unixtime": "1721168100",
+      "from": "CryptoInvestor",
+      "from_id": "user1000012",
+      "text": "Invested in a new blockchain project focused on supply chain management. Looks promising!",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Invested in a new blockchain project focused on supply chain management. Looks promising!"
+        }
+      ]
+    },
+    {
+      "id": 1000013,
+      "type": "message",
+      "date": "2024-07-17T01:00:00",
+      "date_unixtime": "1721168400",
+      "from": "TechEnthusiast",
+      "from_id": "user1000013",
+      "text": "What's the best way to learn about DeFi protocols? Any good online courses or resources?",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "What's the best way to learn about DeFi protocols? Any good online courses or resources?"
+        }
+      ]
+    },
+    {
+      "id": 1000014,
+      "type": "message",
+      "date": "2024-07-17T01:05:00",
+      "date_unixtime": "1721168700",
+      "from": "CryptoGuru",
+      "from_id": "user1000014",
+      "text": "Can anyone recommend a reliable wallet for storing multiple cryptocurrencies?",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Can anyone recommend a reliable wallet for storing multiple cryptocurrencies?"
+        }
+      ]
+    },
+    {
+      "id": 1000015,
+      "type": "message",
+      "date": "2024-07-17T01:10:00",
+      "date_unixtime": "1721169000",
+      "from": "BlockchainDev",
+      "from_id": "user1000015",
+      "text": "The recent hack on the DeFi platform was due to a reentrancy attack. Make sure to audit your contracts thoroughly.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "The recent hack on the DeFi platform was due to a reentrancy attack. Make sure to audit your contracts thoroughly."
+        }
+      ]
+    },
+    {
+      "id": 1000016,
+      "type": "message",
+      "date": "2024-07-17T01:15:00",
+      "date_unixtime": "1721169300",
+      "from": "CryptoFan",
+      "from_id": "user1000016",
+      "text": "Just started using the new decentralized exchange (DEX). The interface is user-friendly and the transaction fees are low.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Just started using the new decentralized exchange (DEX). The interface is user-friendly and the transaction fees are low."
+        }
+      ]
+    },
+    {
+      "id": 1000017,
+      "type": "message",
+      "date": "2024-07-17T01:20:00",
+      "date_unixtime": "1721169600",
+      "from": "DeFiInvestor",
+      "from_id": "user1000017",
+      "text": "The new yield farming platform offers attractive rewards. Just make sure to read the fine print and understand the risks.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "The new yield farming platform offers attractive rewards. Just make sure to read the fine print and understand the risks."
+        }
+      ]
+    },
+    {
+      "id": 1000018,
+      "type": "message",
+      "date": "2024-07-17T01:25:00",
+      "date_unixtime": "1721169900",
+      "from": "BlockchainExpert",
+      "from_id": "user1000018",
+      "text": "For those new to DeFi, it's crucial to diversify your investments and not put all your funds into one protocol.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "For those new to DeFi, it's crucial to diversify your investments and not put all your funds into one protocol."
+        }
+      ]
+    },
+    {
+      "id": 1000019,
+      "type": "message",
+      "date": "2024-07-17T01:30:00",
+      "date_unixtime": "1721170200",
+      "from": "TechGuru",
+      "from_id": "user1000019",
+      "text": "Has anyone experienced issues with the new wallet update? My transactions are getting stuck.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Has anyone experienced issues with the new wallet update? My transactions are getting stuck."
+        }
+      ]
+    },
+    {
+      "id": 1000020,
+      "type": "message",
+      "date": "2024-07-17T01:35:00",
+      "date_unixtime": "1721170500",
+      "from": "CryptoTrader",
+      "from_id": "user1000020",
+      "text": "The recent price drop in BTC is a great buying opportunity. What's everyone's strategy?",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "The recent price drop in BTC is a great buying opportunity. What's everyone's strategy?"
+        }
+      ]
+    },
+    {
+      "id": 1000021,
+      "type": "message",
+      "date": "2024-07-17T01:40:00",
+      "date_unixtime": "1721170800",
+      "from": "DeFiDev",
+      "from_id": "user1000021",
+      "text": "Working on a new project that integrates AI with blockchain. Exciting times ahead!",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Working on a new project that integrates AI with blockchain. Exciting times ahead!"
+        }
+      ]
+    },
+    {
+      "id": 1000022,
+      "type": "message",
+      "date": "2024-07-17T01:45:00",
+      "date_unixtime": "1721171100",
+      "from": "BlockchainExpert",
+      "from_id": "user1000022",
+      "text": "The new consensus algorithm promises faster transactions and lower energy consumption. Keep an eye on the updates.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "The new consensus algorithm promises faster transactions and lower energy consumption. Keep an eye on the updates."
+        }
+      ]
+    },
+    {
+      "id": 1000023,
+      "type": "message",
+      "date": "2024-07-17T01:50:00",
+      "date_unixtime": "1721171400",
+      "from": "CryptoFan",
+      "from_id": "user1000023",
+      "text": "Anyone have experience with liquidity mining? Is it worth the risk?",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Anyone have experience with liquidity mining? Is it worth the risk?"
+        }
+      ]
+    },
+    {
+      "id": 1000024,
+      "type": "message",
+      "date": "2024-07-17T01:55:00",
+      "date_unixtime": "1721171700",
+      "from": "TechEnthusiast",
+      "from_id": "user1000024",
+      "text": "Just started using a hardware wallet for extra security. Highly recommend it for long-term storage.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Just started using a hardware wallet for extra security. Highly recommend it for long-term storage."
+        }
+      ]
+    },
+    {
+      "id": 1000025,
+      "type": "message",
+      "date": "2024-07-17T02:00:00",
+      "date_unixtime": "1721172000",
+      "from": "CryptoInvestor",
+      "from_id": "user1000025",
+      "text": "The new blockchain game is quite addictive. Has anyone else tried it?",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "The new blockchain game is quite addictive. Has anyone else tried it?"
+        }
+      ]
+    },
+    {
+      "id": 1000026,
+      "type": "message",
+      "date": "2024-07-17T02:05:00",
+      "date_unixtime": "1721172300",
+      "from": "BlockchainDev",
+      "from_id": "user1000026",
+      "text": "The latest security audit report highlights some critical issues. Developers need to address these before the mainnet launch.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "The latest security audit report highlights some critical issues. Developers need to address these before the mainnet launch."
+        }
+      ]
+    },
+    {
+      "id": 1000027,
+      "type": "message",
+      "date": "2024-07-17T02:10:00",
+      "date_unixtime": "1721172600",
+      "from": "CryptoTrader",
+      "from_id": "user1000027",
+      "text": "The market is volatile right now. Make sure to set stop-loss orders to protect your investments.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "The market is volatile right now. Make sure to set stop-loss orders to protect your investments."
+        }
+      ]
+    },
+    {
+      "id": 1000028,
+      "type": "message",
+      "date": "2024-07-17T02:15:00",
+      "date_unixtime": "1721172900",
+      "from": "TechGuru",
+      "from_id": "user1000028",
+      "text": "Exploring the possibilities of using blockchain in healthcare. The potential for secure patient data management is huge.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Exploring the possibilities of using blockchain in healthcare. The potential for secure patient data management is huge."
+        }
+      ]
+    },
+    {
+      "id": 1000029,
+      "type": "message",
+      "date": "2024-07-17T02:20:00",
+      "date_unixtime": "1721173200",
+      "from": "CryptoFan",
+      "from_id": "user1000029",
+      "text": "Just launched a new NFT project. The community support has been amazing so far!",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Just launched a new NFT project. The community support has been amazing so far!"
+        }
+      ]
+    },
+    {
+      "id": 1000030,
+      "type": "message",
+      "date": "2024-07-19T15:30:00",
+      "date_unixtime": "1721388600",
+      "from": "SingularityNET",
+      "from_id": "organization1000030",
+      "text": "Exciting news! SingularityNET has just released a new AI model that enhances natural language understanding. Check out the details on our blog!",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Exciting news! SingularityNET has just released a new AI model that enhances natural language understanding. Check out the details on our blog!"
+        }
+      ]
+    },
+    {
+      "id": 1000031,
+      "type": "message",
+      "date": "2024-07-19T10:00:00",
+      "date_unixtime": "1721376000",
+      "from": "SingularityNET",
+      "from_id": "organization1000031",
+      "text": "SingularityNET's new AI platform integrates cutting-edge machine learning algorithms to enhance decentralized AI capabilities. Discover more on our technology page!",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "SingularityNET's new AI platform integrates cutting-edge machine learning algorithms to enhance decentralized AI capabilities. Discover more on our technology page!"
+        }
+      ]
+    },
+    {
+      "id": 1000032,
+      "type": "message",
+      "date": "2024-07-19T11:00:00",
+      "date_unixtime": "1721383200",
+      "from": "SingularityNET",
+      "from_id": "organization1000032",
+      "text": "Our latest AI model utilizes advanced neural networks to process and analyze complex datasets with unprecedented accuracy. Learn more on the technology page!",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Our latest AI model utilizes advanced neural networks to process and analyze complex datasets with unprecedented accuracy. Learn more on the technology page!"
+        }
+      ]
+    },
+    {
+      "id": 1000033,
+      "type": "message",
+      "date": "2024-07-19T12:00:00",
+      "date_unixtime": "1721386800",
+      "from": "SingularityNET",
+      "from_id": "organization1000033",
+      "text": "Big announcement: SingularityNET is launching a new platform feature aimed at increasing interoperability between AI agents. Details available on our homepage!",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Big announcement: SingularityNET is launching a new platform feature aimed at increasing interoperability between AI agents. Details available on our homepage!"
+        }
+      ]
+    },
+    {
+      "id": 1000034,
+      "type": "message",
+      "date": "2024-07-19T13:00:00",
+      "date_unixtime": "1721390400",
+      "from": "SingularityNET",
+      "from_id": "organization1000034",
+      "text": "Check out our latest blog post on the homepage about how SingularityNET is revolutionizing decentralized AI with innovative new tools and applications.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Check out our latest blog post on the homepage about how SingularityNET is revolutionizing decentralized AI with innovative new tools and applications."
+        }
+      ]
+    },
+    {
+      "id": 1000035,
+      "type": "message",
+      "date": "2024-07-19T14:00:00",
+      "date_unixtime": "1721394000",
+      "from": "SingularityNET",
+      "from_id": "organization1000035",
+      "text": "SingularityNET's ecosystem continues to expand with new strategic partnerships and integrations. Explore our latest partners and innovations on the ecosystem page.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "SingularityNET's ecosystem continues to expand with new strategic partnerships and integrations. Explore our latest partners and innovations on the ecosystem page."
+        }
+      ]
+    },
+    {
+      "id": 1000036,
+      "type": "message",
+      "date": "2024-07-19T15:00:00",
+      "date_unixtime": "1721397600",
+      "from": "SingularityNET",
+      "from_id": "organization1000036",
+      "text": "Discover how SingularityNET's ecosystem is fostering collaboration among AI developers and enterprises to drive innovation in decentralized AI solutions.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Discover how SingularityNET's ecosystem is fostering collaboration among AI developers and enterprises to drive innovation in decentralized AI solutions."
+        }
+      ]
+    },
+    {
+      "id": 1000037,
+      "type": "message",
+      "date": "2024-07-19T16:00:00",
+      "date_unixtime": "1721401200",
+      "from": "SingularityNET",
+      "from_id": "organization1000037",
+      "text": "SingularityNET is dedicated to creating a global AI network that democratizes access to artificial intelligence technology, ensuring equitable benefits for all. Learn more about our mission on our website.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "SingularityNET is dedicated to creating a global AI network that democratizes access to artificial intelligence technology, ensuring equitable benefits for all. Learn more about our mission on our website."
+        }
+      ]
+    },
+    {
+      "id": 1000038,
+      "type": "message",
+      "date": "2024-07-19T17:00:00",
+      "date_unixtime": "1721404800",
+      "from": "SingularityNET",
+      "from_id": "organization1000038",
+      "text": "Our mission at SingularityNET is to build a decentralized platform where AI technologies can flourish independently while collaborating seamlessly. Discover our vision on our mission page.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Our mission at SingularityNET is to build a decentralized platform where AI technologies can flourish independently while collaborating seamlessly. Discover our vision on our mission page."
+        }
+      ]
+    },
+    {
+      "id": 1000039,
+      "type": "message",
+      "date": "2024-07-19T18:00:00",
+      "date_unixtime": "1721408400",
+      "from": "SingularityNET",
+      "from_id": "organization1000039",
+      "text": "Explore the innovative features of SingularityNET's AI platform, including advanced algorithm integration and scalable solutions that support a wide range of applications.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Explore the innovative features of SingularityNET's AI platform, including advanced algorithm integration and scalable solutions that support a wide range of applications."
+        }
+      ]
+    },
+    {
+      "id": 1000040,
+      "type": "message",
+      "date": "2024-07-19T19:00:00",
+      "date_unixtime": "1721412000",
+      "from": "SingularityNET",
+      "from_id": "organization1000040",
+      "text": "SingularityNET’s platform is designed to foster collaboration between AI agents through smart contracts and decentralized protocols, enhancing the capabilities of each participating AI.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "SingularityNET’s platform is designed to foster collaboration between AI agents through smart contracts and decentralized protocols, enhancing the capabilities of each participating AI."
+        }
+      ]
+    },
+    {
+      "id": 1000041,
+      "type": "message",
+      "date": "2024-07-19T20:00:00",
+      "date_unixtime": "1721415600",
+      "from": "SingularityNET",
+      "from_id": "organization1000041",
+      "text": "We’re thrilled to announce that SingularityNET has successfully integrated our platform with several leading AI services, marking a significant milestone in our journey toward a decentralized AI network.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "We’re thrilled to announce that SingularityNET has successfully integrated our platform with several leading AI services, marking a significant milestone in our journey toward a decentralized AI network."
+        }
+      ]
+    },
+    {
+      "id": 1000042,
+      "type": "message",
+      "date": "2024-07-19T21:00:00",
+      "date_unixtime": "1721419200",
+      "from": "SingularityNET",
+      "from_id": "organization1000042",
+      "text": "SingularityNET has recently achieved a major breakthrough by deploying a new AI model that enhances natural language processing capabilities, bringing us closer to our goal of universal AI accessibility.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "SingularityNET has recently achieved a major breakthrough by deploying a new AI model that enhances natural language processing capabilities, bringing us closer to our goal of universal AI accessibility."
+        }
+      ]
+    },
+    {
+      "id": 1000043,
+      "type": "message",
+      "date": "2024-07-19T22:00:00",
+      "date_unixtime": "1721422800",
+      "from": "SingularityNET",
+      "from_id": "organization1000043",
+      "text": "SingularityNET is pioneering new ways to leverage decentralized AI by creating open-source tools that facilitate AI development and collaboration across borders.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "SingularityNET is pioneering new ways to leverage decentralized AI by creating open-source tools that facilitate AI development and collaboration across borders."
+        }
+      ]
+    },
+    {
+      "id": 1000044,
+      "type": "message",
+      "date": "2024-07-19T23:00:00",
+      "date_unixtime": "1721426400",
+      "from": "SingularityNET",
+      "from_id": "organization1000044",
+      "text": "Our unique approach to AI decentralization involves creating a marketplace where AI services can be bought, sold, and improved continuously, fostering an ecosystem of innovation and shared knowledge.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Our unique approach to AI decentralization involves creating a marketplace where AI services can be bought, sold, and improved continuously, fostering an ecosystem of innovation and shared knowledge."
+        }
+      ]
+    },
+    {
+      "id": 1000045,
+      "type": "message",
+      "date": "2024-07-20T08:00:00",
+      "date_unixtime": "1721462400",
+      "from": "SingularityNET",
+      "from_id": "organization1000045",
+      "text": "SingularityNET is on a mission to build a decentralized AI network that empowers individuals and organizations to develop and use AI technologies freely and transparently. Discover our vision on our 'About Us' page.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "SingularityNET is on a mission to build a decentralized AI network that empowers individuals and organizations to develop and use AI technologies freely and transparently. Discover our vision on our 'About Us' page."
+        }
+      ]
+    },
+    {
+      "id": 1000046,
+      "type": "message",
+      "date": "2024-07-20T09:00:00",
+      "date_unixtime": "1721466000",
+      "from": "SingularityNET",
+      "from_id": "organization1000046",
+      "text": "Our vision at SingularityNET is to create a global network of AI agents that collaborates across borders, facilitating the development of cutting-edge AI solutions. Learn more about our goals and aspirations on the 'About Us' page.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Our vision at SingularityNET is to create a global network of AI agents that collaborates across borders, facilitating the development of cutting-edge AI solutions. Learn more about our goals and aspirations on the 'About Us' page."
+        }
+      ]
+    },
+    {
+      "id": 1000047,
+      "type": "message",
+      "date": "2024-07-20T10:00:00",
+      "date_unixtime": "1721469600",
+      "from": "SingularityNET",
+      "from_id": "organization1000047",
+      "text": "Meet the team behind SingularityNET! Our leadership comprises experts in AI, blockchain technology, and decentralized systems, all working together to drive innovation and ensure the success of our mission.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Meet the team behind SingularityNET! Our leadership comprises experts in AI, blockchain technology, and decentralized systems, all working together to drive innovation and ensure the success of our mission."
+        }
+      ]
+    },
+    {
+      "id": 1000048,
+      "type": "message",
+      "date": "2024-07-20T11:00:00",
+      "date_unixtime": "1721473200",
+      "from": "SingularityNET",
+      "from_id": "organization1000048",
+      "text": "Our team at SingularityNET is composed of visionary leaders and talented professionals dedicated to pioneering decentralized AI technologies and transforming the way AI is developed and utilized.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Our team at SingularityNET is composed of visionary leaders and talented professionals dedicated to pioneering decentralized AI technologies and transforming the way AI is developed and utilized."
+        }
+      ]
+    },
+    {
+      "id": 1000049,
+      "type": "message",
+      "date": "2024-07-20T12:00:00",
+      "date_unixtime": "1721476800",
+      "from": "SingularityNET",
+      "from_id": "organization1000049",
+      "text": "At SingularityNET, our core values include transparency, decentralization, and collaboration. We are committed to building a fair and open AI ecosystem where innovation thrives and benefits are shared equitably.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "At SingularityNET, our core values include transparency, decentralization, and collaboration. We are committed to building a fair and open AI ecosystem where innovation thrives and benefits are shared equitably."
+        }
+      ]
+    },
+    {
+      "id": 1000050,
+      "type": "message",
+      "date": "2024-07-20T13:00:00",
+      "date_unixtime": "1721480400",
+      "from": "SingularityNET",
+      "from_id": "organization1000050",
+      "text": "Our principles at SingularityNET guide us in creating an inclusive and innovative environment. We value open collaboration and strive to ensure that our technologies and solutions benefit the global community.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Our principles at SingularityNET guide us in creating an inclusive and innovative environment. We value open collaboration and strive to ensure that our technologies and solutions benefit the global community."
+        }
+      ]
+    },
+    {
+      "id": 1000051,
+      "type": "message",
+      "date": "2024-07-20T14:00:00",
+      "date_unixtime": "1721484000",
+      "from": "SingularityNET",
+      "from_id": "organization1000051",
+      "text": "Ben Goertzel is the CEO and founder of SingularityNET. With a background in artificial intelligence and cognitive science, he leads the organization with a vision to create a decentralized AI network that empowers global collaboration and innovation.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Ben Goertzel is the CEO and founder of SingularityNET. With a background in artificial intelligence and cognitive science, he leads the organization with a vision to create a decentralized AI network that empowers global collaboration and innovation."
+        }
+      ]
+    },
+    {
+      "id": 1000052,
+      "type": "message",
+      "date": "2024-07-20T15:00:00",
+      "date_unixtime": "1721487600",
+      "from": "SingularityNET",
+      "from_id": "organization1000052",
+      "text": "As the founder of SingularityNET, Ben Goertzel brings decades of experience in AI research and development. His leadership focuses on advancing AI technologies and fostering an open, decentralized ecosystem for AI services.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "As the founder of SingularityNET, Ben Goertzel brings decades of experience in AI research and development. His leadership focuses on advancing AI technologies and fostering an open, decentralized ecosystem for AI services."
+        }
+      ]
+    },
+    {
+      "id": 1000053,
+      "type": "message",
+      "date": "2024-07-20T16:00:00",
+      "date_unixtime": "1721491200",
+      "from": "SingularityNET",
+      "from_id": "organization1000053",
+      "text": "Dr. David Hanson, co-founder of SingularityNET, is known for his work in robotics and artificial intelligence. He is also the founder of Hanson Robotics, where he focuses on creating human-like robots and advancing AI technologies.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Dr. David Hanson, co-founder of SingularityNET, is known for his work in robotics and artificial intelligence. He is also the founder of Hanson Robotics, where he focuses on creating human-like robots and advancing AI technologies."
+        }
+      ]
+    },
+    {
+      "id": 1000054,
+      "type": "message",
+      "date": "2024-07-20T17:00:00",
+      "date_unixtime": "1721494800",
+      "from": "SingularityNET",
+      "from_id": "organization1000054",
+      "text": "Dr. David Hanson's contributions to SingularityNET involve integrating advanced robotics with AI systems, enhancing the potential for human-robot interaction and expanding the capabilities of AI-driven solutions.",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Dr. David Hanson's contributions to SingularityNET involve integrating advanced robotics with AI systems, enhancing the potential for human-robot interaction and expanding the capabilities of AI-driven solutions."
+        }
+      ]
+    }
+  ]
+}
