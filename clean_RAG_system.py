@@ -15,7 +15,13 @@ load_dotenv()
 api_key = os.getenv('GEMINI_API_KEY')
 genai.configure(api_key=api_key)
 
-def preprocess_data(input_file, output_file):
+def chunk_messages_by_id(messages, max_messages_per_chunk=50):
+    chunked_messages = []
+    for i in range(0, len(messages), max_messages_per_chunk):
+        chunked_messages.append(messages[i:i + max_messages_per_chunk])
+    return chunked_messages
+
+def preprocess_data(input_file, output_file, max_messages_per_chunk=50):
     with open(input_file, 'r', encoding='utf-8') as f:
         data = json.load(f)
     
@@ -30,11 +36,13 @@ def preprocess_data(input_file, output_file):
         }
         messages.append(formatted_message)
     
+    chunked_messages = chunk_messages_by_id(messages, max_messages_per_chunk)
+    
     output_data = {
         'name': data.get('name', 'Telegram Data'),
         'type': data.get('type', 'data_conversion'),
         'id': data.get('id', 1),
-        'messages': messages
+        'messages': chunked_messages
     }
     
     with open(output_file, 'w', encoding='utf-8') as f:
@@ -105,18 +113,19 @@ data_file = 'telegram_data.json'
 data = load_data_from_json(data_file)
 
 documents = []
-for message in data['messages']:
-    entry = f"{message['from']}: {message['text']}"
-    documents.append(entry)
+for chunk in data['messages']:
+    for message in chunk:
+        entry = f"{message['from']}: {message['text']}"
+        documents.append(entry)
 
 db = create_chroma_db(documents, "sme_db")
 
 while True:
-    print(Fore.GREEN + "Good Question: What is the recent security issue with SDAO, and what should I do with my unbounded stake?")
-    print(Fore.GREEN + "Good Question: Why do I need ETH for gas fees when unstaking SDAO?")
-    print(Fore.GREEN + "Good Question: What should I do if I am new to unstakinig?")
+    print(Fore.GREEN + "Good Question: What is SingularityNet?")
+    print(Fore.GREEN + "Good Question: What is AGIX?")
+    print(Fore.GREEN + "Good Question: Will AGIX reach 1 dollar?")
     print(Fore.RED + "Bad Question: What happened to Donald Trump?\n")
-    question = input("Ask question related to SingularityNET channel: ")
+    question = input("Ask question related to SingularityNET: ")
 
     try:
         passages = get_relevant_passages(question, db, n_results=5)
