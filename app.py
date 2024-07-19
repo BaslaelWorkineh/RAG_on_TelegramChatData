@@ -14,22 +14,25 @@ from flask_cors import CORS
 init(autoreset=True)
 
 app = Flask(__name__)
-CORS(app) 
+CORS(app)
 
 load_dotenv()
 
 api_key = os.getenv('GEMINI_API_KEY')
 genai.configure(api_key=api_key)
 
-def preprocess_data(input_file, output_file, chunk_method='conversation'):
+def preprocess_data(input_file, output_file, chunk_method='id'):
     with open(input_file, 'r', encoding='utf-8') as f:
         data = json.load(f)
-    
+
     messages = data['messages']
     chunked_messages = []
 
     if chunk_method == 'conversation':
         chunked_messages = chunk_conversations(messages, timedelta(minutes=10))
+    elif chunk_method == 'id':
+        max_messages_per_chunk = 1
+        chunked_messages = chunk_messages_by_id(messages, max_messages_per_chunk)
 
     output_data = {
         'name': data.get('name', 'Telegram Data'),
@@ -37,7 +40,7 @@ def preprocess_data(input_file, output_file, chunk_method='conversation'):
         'id': data.get('id', 1),
         'messages': chunked_messages
     }
-    
+
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(output_data, f, ensure_ascii=False, indent=4)
 
@@ -60,6 +63,13 @@ def chunk_conversations(messages, max_time_gap):
         conversations.append(current_conversation)
 
     return conversations
+
+def chunk_messages_by_id(messages, max_messages_per_chunk=1):
+    chunked_messages = []
+    for i in range(0, len(messages), max_messages_per_chunk):
+        chunk = [{'from': message['from'], 'text': message['text']} for message in messages[i:i + max_messages_per_chunk]]
+        chunked_messages.append(chunk)
+    return chunked_messages
 
 class GeminiEmbeddingFunction(EmbeddingFunction):
     def __call__(self, input: Documents) -> Embeddings:
@@ -120,9 +130,9 @@ def load_data_from_json(file_path):
 
 input_file = 'data.json'
 output_file = 'telegram_data.json'
-preprocess_data(input_file, output_file, chunk_method='conversation')
+preprocess_data(input_file, output_file, chunk_method='id')
 
-data_file = 'telegram_data.json' 
+data_file = 'telegram_data.json'
 data = load_data_from_json(data_file)
 
 documents = []

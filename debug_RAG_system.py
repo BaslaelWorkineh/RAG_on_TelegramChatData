@@ -129,14 +129,11 @@ logging.debug(Fore.YELLOW + f"Documents prepared for DB: {documents}")
 db = create_chroma_db(documents, "sme_db")
 
 while True:
-    #Good questions.
-    #Why do I need ETH for gas fees when unstaking SDAO?
-    #What is the recent security issue with SDAO, and what should I do with my unbounded stake?
-    print(Fore.GREEN + "Good Question: What is the recent security issue with SDAO, and what should I do with my unbounded stake?")
-    print(Fore.GREEN + "Good Question: Why do I need ETH for gas fees when unstaking SDAO?")
-    print(Fore.GREEN + "Good Question: What should I do if I am new to unstakinig?")
+    print(Fore.GREEN + "Good Question: What is SingularityNET and what is it's mission?")
+    print(Fore.GREEN + "Good Question: What is SingularityNet's ecosystem doing?")
+    print(Fore.GREEN + "Good Question: Will AGIX reach 1 dollar?")
     print(Fore.RED + "Bad Question: What happened to Donald Trump?\n")
-    question = input("Ask question related to SingularityNET channel: ")
+    question = input("Ask question related to SingularityNET: ")
 
     try:
         passages = get_relevant_passages(question, db, n_results=5)

@@ -18,8 +18,10 @@ genai.configure(api_key=api_key)
 def chunk_messages_by_id(messages, max_messages_per_chunk=1):
     chunked_messages = []
     for i in range(0, len(messages), max_messages_per_chunk):
-        chunked_messages.append(messages[i:i + max_messages_per_chunk])
+        chunk = [{'from': message['from'], 'text': message['text']} for message in messages[i:i + max_messages_per_chunk]]
+        chunked_messages.append(chunk)
     return chunked_messages
+
 
 def preprocess_data(input_file, output_file, max_messages_per_chunk=1):
     with open(input_file, 'r', encoding='utf-8') as f:
@@ -121,8 +123,8 @@ for chunk in data['messages']:
 db = create_chroma_db(documents, "sme_db")
 
 while True:
-    print(Fore.GREEN + "Good Question: What is SingularityNet?")
-    print(Fore.GREEN + "Good Question: What is AGIX?")
+    print(Fore.GREEN + "Good Question: What is SingularityNET and what is it's mission?")
+    print(Fore.GREEN + "Good Question: What is SingularityNet's ecosystem doing?")
     print(Fore.GREEN + "Good Question: Will AGIX reach 1 dollar?")
     print(Fore.RED + "Bad Question: What happened to Donald Trump?\n")
     question = input("Ask question related to SingularityNET: ")
