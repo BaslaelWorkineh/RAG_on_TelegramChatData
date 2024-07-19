@@ -15,13 +15,13 @@ load_dotenv()
 api_key = os.getenv('GEMINI_API_KEY')
 genai.configure(api_key=api_key)
 
-def chunk_messages_by_id(messages, max_messages_per_chunk=50):
+def chunk_messages_by_id(messages, max_messages_per_chunk=1):
     chunked_messages = []
     for i in range(0, len(messages), max_messages_per_chunk):
         chunked_messages.append(messages[i:i + max_messages_per_chunk])
     return chunked_messages
 
-def preprocess_data(input_file, output_file, max_messages_per_chunk=50):
+def preprocess_data(input_file, output_file, max_messages_per_chunk=1):
     with open(input_file, 'r', encoding='utf-8') as f:
         data = json.load(f)
     
