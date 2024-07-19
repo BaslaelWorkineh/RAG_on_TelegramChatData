@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 import json
+from datetime import datetime, timedelta
 
 import chromadb
 from chromadb import Documents, EmbeddingFunction, Embeddings
@@ -20,30 +21,45 @@ load_dotenv()
 api_key = os.getenv('GEMINI_API_KEY')
 genai.configure(api_key=api_key)
 
-def preprocess_data(input_file, output_file):
+def preprocess_data(input_file, output_file, chunk_method='conversation'):
     with open(input_file, 'r', encoding='utf-8') as f:
         data = json.load(f)
     
-    messages = []
-    for message in data['messages']:
-        formatted_message = {
-            'id': message.get('id', ''),
-            'type': message.get('type', ''),
-            'date': message.get('date', ''),
-            'from': message.get('from', ''),
-            'text': message.get('text', '')
-        }
-        messages.append(formatted_message)
-    
+    messages = data['messages']
+    chunked_messages = []
+
+    if chunk_method == 'conversation':
+        chunked_messages = chunk_conversations(messages, timedelta(minutes=10))
+
     output_data = {
         'name': data.get('name', 'Telegram Data'),
         'type': data.get('type', 'data_conversion'),
         'id': data.get('id', 1),
-        'messages': messages
+        'messages': chunked_messages
     }
     
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(output_data, f, ensure_ascii=False, indent=4)
+
+def chunk_conversations(messages, max_time_gap):
+    conversations = []
+    current_conversation = []
+    last_message_time = None
+
+    for message in messages:
+        message_time = datetime.fromisoformat(message['date'])
+
+        if last_message_time and (message_time - last_message_time > max_time_gap):
+            conversations.append(current_conversation)
+            current_conversation = []
+
+        current_conversation.append(message)
+        last_message_time = message_time
+
+    if current_conversation:
+        conversations.append(current_conversation)
+
+    return conversations
 
 class GeminiEmbeddingFunction(EmbeddingFunction):
     def __call__(self, input: Documents) -> Embeddings:
@@ -104,15 +120,16 @@ def load_data_from_json(file_path):
 
 input_file = 'data.json'
 output_file = 'telegram_data.json'
-preprocess_data(input_file, output_file)
+preprocess_data(input_file, output_file, chunk_method='conversation')
 
 data_file = 'telegram_data.json' 
 data = load_data_from_json(data_file)
 
 documents = []
-for message in data['messages']:
-    entry = f"{message['from']}: {message['text']}"
-    documents.append(entry)
+for conversation in data['messages']:
+    for message in conversation:
+        entry = f"{message['from']}: {message['text']}"
+        documents.append(entry)
 
 db = create_chroma_db(documents, "sme_db")
 
