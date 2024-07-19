@@ -93,7 +93,7 @@ def make_prompt(query, relevant_passage):
     escaped = relevant_passage.replace("'", "").replace('"', "")
     prompt = f"""question: {query}.\n
     Additional Information:\n {escaped}\n
-    If you find that the question is unrelated to the additional information, you can ignore it and respond with 'OUT OF CONTEXT'.\n
+    If you find that the question is unrelated to the additional information, you can ignore it and respond with 'Sorry, I couldn't answer that since my data is limited'.\n
     Your response should be a coherent paragraph explaining the answer:\n
     """
     logging.debug(Fore.YELLOW + f"Generated prompt: {prompt}")
