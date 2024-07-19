@@ -1,0 +1,113 @@
+{
+    "name": "SingularityNET Community",
+    "type": "public_supergroup",
+    "id": 1140090881,
+    "messages": [
+      {
+        "id": 1028975,
+        "type": "message",
+        "date": "2024-07-17T00:45:00",
+        "date_unixtime": "1721166300",
+        "from": "TechGuru",
+        "from_id": "user4782345621",
+        "text": "The security issue with SDAO is related to the recent vulnerability found in the staking contract. It's advised to move your stake to a new contract. The team has provided detailed instructions in the announcement channel.",
+        "text_entities": [
+          {
+            "type": "plain",
+            "text": "The security issue with SDAO is related to the recent vulnerability found in the staking contract. It's advised to move your stake to a new contract. The team has provided detailed instructions in the announcement channel."
+          }
+        ]
+      },
+      {
+        "id": 1028976,
+        "type": "message",
+        "date": "2024-07-17T00:50:00",
+        "date_unixtime": "1721166600",
+        "from": "CryptoFan",
+        "from_id": "user2938475621",
+        "text": "I just followed the instructions to unstake and restake my SDAO. It was pretty straightforward. Make sure you have some ETH for gas fees.",
+        "text_entities": [
+          {
+            "type": "plain",
+            "text": "I just followed the instructions to unstake and restake my SDAO. It was pretty straightforward. Make sure you have some ETH for gas fees."
+          }
+        ]
+      },
+      {
+        "id": 1028977,
+        "type": "message",
+        "date": "2024-07-17T01:00:00",
+        "date_unixtime": "1721167200",
+        "from": "DevTalk",
+        "from_id": "user1234567890",
+        "text": "For those asking about the technical details, the vulnerability was in the way the smart contract handled state changes. The developers have patched this in the new contract, ensuring better security.",
+        "text_entities": [
+          {
+            "type": "plain",
+            "text": "For those asking about the technical details, the vulnerability was in the way the smart contract handled state changes. The developers have patched this in the new contract, ensuring better security."
+          }
+        ]
+      },
+      {
+        "id": 1028978,
+        "type": "message",
+        "date": "2024-07-17T01:15:00",
+        "date_unixtime": "1721168100",
+        "from": "CommunityAdmin",
+        "from_id": "user0987654321",
+        "text": "We understand the concerns about the security issue. The team is working around the clock to ensure that all staked assets are safe. Please follow the guidelines posted in the official announcement.",
+        "text_entities": [
+          {
+            "type": "plain",
+            "text": "We understand the concerns about the security issue. The team is working around the clock to ensure that all staked assets are safe. Please follow the guidelines posted in the official announcement."
+          }
+        ]
+      },
+      {
+        "id": 1028979,
+        "type": "message",
+        "date": "2024-07-17T01:30:00",
+        "date_unixtime": "1721169000",
+        "from": "BlockchainExpert",
+        "from_id": "user1122334455",
+        "text": "If you're new to unstaking, make sure to backup your wallet and double-check the new contract address before restaking. Scammers might try to take advantage of the situation.",
+        "text_entities": [
+          {
+            "type": "plain",
+            "text": "If you're new to unstaking, make sure to backup your wallet and double-check the new contract address before restaking. Scammers might try to take advantage of the situation."
+          }
+        ]
+      },
+      {
+        "id": 1028980,
+        "type": "message",
+        "date": "2024-07-17T01:45:00",
+        "date_unixtime": "1721169900",
+        "from": "CryptoInvestor",
+        "from_id": "user5566778899",
+        "text": "Just restaked my SDAO. The new contract seems much more secure. Kudos to the dev team for the quick response and fix!",
+        "text_entities": [
+          {
+            "type": "plain",
+            "text": "Just restaked my SDAO. The new contract seems much more secure. Kudos to the dev team for the quick response and fix!"
+          }
+        ]
+      },
+      {
+        "id": 1028981,
+        "type": "message",
+        "date": "2024-07-17T02:00:00",
+        "date_unixtime": "1721170800",
+        "from": "BlockchainDev",
+        "from_id": "user2233445566",
+        "text": "For anyone experiencing issues with the new staking process, try clearing your cache and cookies. If the problem persists, reach out to the support team via the official website.",
+        "text_entities": [
+          {
+            "type": "plain",
+            "text": "For anyone experiencing issues with the new staking process, try clearing your cache and cookies. If the problem persists, reach out to the support team via the official website."
+          }
+        ]
+      }
+    ]
+  }
+  

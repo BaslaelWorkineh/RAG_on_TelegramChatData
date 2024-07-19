@@ -132,7 +132,7 @@ dmypy.json
 *.log
 
 # Ignore JSON files
-*.json
+telegram_data.json
 
 # Ignore SQLite databases
 *.sqlite
